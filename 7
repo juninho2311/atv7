@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comentários com JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .comment {
+      margin-bottom: 10px;
+    }
+
+    .comment button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Comentários</h1>
+
+  <input type="text" id="commentInput" placeholder="Escreva seu comentário">
+  <button onclick="addComment()">Adicionar Comentário</button>
+
+  <div id="commentsSection"></div>
+
+  <script>
+    function addComment() {
+      const commentInput = document.getElementById('commentInput');
+      const commentText = commentInput.value;
+
+      if (commentText.trim() === "") {
+        alert('Por favor, escreva algo antes de adicionar.');
+        return;
+      }
+
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'comment';
+      const commentP = document.createElement('p');
+      commentP.innerText = commentText;
+
+      const editButton = document.createElement('button');
+      editButton.innerText = 'Editar';
+      editButton.onclick = function() {
+        const newComment = prompt('Edite seu comentário:', commentP.innerText);
+        if (newComment !== null && newComment.trim() !== "") {
+          commentP.innerText = newComment;
+        }
+      };
+
+      const removeButton = document.createElement('button');
+      removeButton.innerText = 'Remover';
+      removeButton.onclick = function() {
+        commentDiv.remove();
+      };
+
+      commentDiv.appendChild(commentP);
+      commentDiv.appendChild(editButton);
+      commentDiv.appendChild(removeButton);
+
+      document.getElementById('commentsSection').appendChild(commentDiv);
+
+      // Limpa o campo de input após adicionar o comentário
+      commentInput.value = '';
+    }
+  </script>
+
+</body>
+</html>
